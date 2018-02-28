@@ -3,9 +3,9 @@
 // angular.module is a global place for creating, registering and retrieving Angular modules
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
-angular.module('starter', ['ionic'])
+var shante = angular.module('starter', ['ionic', 'ionic.native'])
 
-.run(function($ionicPlatform) {
+shante.run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
     if(window.cordova && window.cordova.plugins.Keyboard) {
       // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
@@ -21,4 +21,38 @@ angular.module('starter', ['ionic'])
       StatusBar.styleDefault();
     }
   });
+})
+
+shante.config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
+  $ionicConfigProvider.tabs.position('bottom');
+
+  $stateProvider
+  .state('main', {
+    url: '/shante',
+    templateUrl: 'templates/main.html',
+    controller: 'MainCtrl'
+  })
+
+  .state('main.map', {
+    url: '/map',
+    views: {
+      'map': {
+        templateUrl: 'templates/map.html',
+        controller: 'MapCtrl'
+      }
+    }
+  })
+
+  .state('main.notif', {
+    url: '/notif',
+    views: {
+      'notif': {
+        templateUrl: 'templates/notif.html',
+        controller: 'NotifCtrl'
+      }
+    }
+  })
+  ;
+
+  $urlRouterProvider.otherwise("/shante")
 })
